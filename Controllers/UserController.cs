@@ -24,11 +24,14 @@ namespace SmartMeetingRoomApi.Controllers
                 .Select(u => new UserDto
                 {
                     Id = u.Id,
-                    Name = u.Name,
+                    FirstName = u.FirstName,
+                    LastName = u.LastName,
+                    UserName = u.UserName,
                     Email = u.Email,
                     IsActive = u.IsActive,
                     Role = u.Role
-                }).ToListAsync();
+                })
+                .ToListAsync();
 
             return Ok(users);
         }
@@ -42,7 +45,9 @@ namespace SmartMeetingRoomApi.Controllers
             return Ok(new UserDto
             {
                 Id = u.Id,
-                Name = u.Name,
+                FirstName = u.FirstName,
+                LastName = u.LastName,
+                UserName = u.UserName,
                 Email = u.Email,
                 IsActive = u.IsActive,
                 Role = u.Role
@@ -54,12 +59,14 @@ namespace SmartMeetingRoomApi.Controllers
         {
             var user = new User
             {
-                Name = dto.Name,
+                FirstName = dto.FirstName,
+                LastName = dto.LastName,
                 Email = dto.Email,
-                PasswordHash = dto.Password, // hash logic can be added
+                PasswordHash = dto.Password,
                 Role = dto.Role,
                 IsActive = true,
-                CreatedAt = DateTime.UtcNow
+                CreatedAt = DateTime.UtcNow,
+                UserName= dto.FirstName + " " + dto.LastName
             };
 
             _context.Users.Add(user);
@@ -68,10 +75,12 @@ namespace SmartMeetingRoomApi.Controllers
             return CreatedAtAction(nameof(GetUser), new { id = user.Id }, new UserDto
             {
                 Id = user.Id,
-                Name = user.Name,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
                 Email = user.Email,
                 IsActive = user.IsActive,
-                Role = user.Role
+                Role = user.Role,
+                UserName = dto.FirstName + " " + dto.LastName
             });
         }
 
@@ -80,8 +89,6 @@ namespace SmartMeetingRoomApi.Controllers
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null) return NotFound();
-
-            if (dto.Name != null) user.Name = dto.Name;
             if (dto.Email != null) user.Email = dto.Email;
             if (dto.Password != null) user.PasswordHash = dto.Password; // hashing logic
             if (dto.Role != null) user.Role = dto.Role;

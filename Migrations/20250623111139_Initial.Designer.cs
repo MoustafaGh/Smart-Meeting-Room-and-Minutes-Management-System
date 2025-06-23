@@ -12,7 +12,7 @@ using SmartMeetingRoomApi.Data;
 namespace SmartMeetingRoomApi.Migrations
 {
     [DbContext(typeof(SmartMeetingRoomApiDbContext))]
-    [Migration("20250620125732_Initial")]
+    [Migration("20250623111139_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -39,17 +39,14 @@ namespace SmartMeetingRoomApi.Migrations
                     b.Property<bool>("Status")
                         .HasColumnType("bit");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UsersId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ScheduledMeetingId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("MeetingAttendees");
                 });
@@ -65,9 +62,6 @@ namespace SmartMeetingRoomApi.Migrations
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Notes")
                         .HasColumnType("nvarchar(max)");
 
@@ -77,7 +71,7 @@ namespace SmartMeetingRoomApi.Migrations
                     b.Property<string>("Summary")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -110,17 +104,14 @@ namespace SmartMeetingRoomApi.Migrations
                     b.Property<int>("ScheduledMeetingId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int?>("UsersId")
+                    b.Property<int>("UserId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ScheduledMeetingId");
 
-                    b.HasIndex("UsersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Notifications");
                 });
@@ -196,10 +187,13 @@ namespace SmartMeetingRoomApi.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
+                    b.Property<string>("LastName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PasswordHash")
@@ -223,7 +217,9 @@ namespace SmartMeetingRoomApi.Migrations
 
                     b.HasOne("SmartMeetingRoomApi.Models.User", "Users")
                         .WithMany("MeetingAttendees")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ScheduledMeeting");
 
@@ -240,7 +236,9 @@ namespace SmartMeetingRoomApi.Migrations
 
                     b.HasOne("SmartMeetingRoomApi.Models.User", "User")
                         .WithMany("MoMs")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ScheduledMeeting");
 
@@ -257,7 +255,9 @@ namespace SmartMeetingRoomApi.Migrations
 
                     b.HasOne("SmartMeetingRoomApi.Models.User", "Users")
                         .WithMany("Notifications")
-                        .HasForeignKey("UsersId");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ScheduledMeeting");
 

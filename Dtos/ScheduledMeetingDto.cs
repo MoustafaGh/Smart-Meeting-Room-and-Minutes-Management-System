@@ -40,7 +40,8 @@ namespace SmartMeetingRoomApi.Dtos
         public string? Description { get; set; }
         public DateTime? StartTime { get; set; }
         public DateTime? EndTime { get; set; }
-        public int? RoomId { get; set; }  // allow room reassignment
+        public int? RoomId { get; set; }  
+
     }
 
 }

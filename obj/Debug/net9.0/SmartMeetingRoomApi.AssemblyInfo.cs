@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("SmartMeetingRoomApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b7f3634ba6e6fbe2f886f5706c85e1113b9ae04")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b7c66e1acb214ddc256a3371b0392ffee5ee7bd1")]
 [assembly: System.Reflection.AssemblyProductAttribute("SmartMeetingRoomApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("SmartMeetingRoomApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

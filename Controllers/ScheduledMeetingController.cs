@@ -28,7 +28,8 @@ namespace SmartMeetingRoomApi.Controllers
                     Description = m.Description,
                     StartTime = m.StartTime,
                     EndTime = m.EndTime,
-                    RoomId = m.RoomId
+                    RoomId = m.RoomId,
+                    UserId = m.UserId
                 }).ToListAsync();
 
             return Ok(meetings);
@@ -47,7 +48,8 @@ namespace SmartMeetingRoomApi.Controllers
                 Description = m.Description,
                 StartTime = m.StartTime,
                 EndTime = m.EndTime,
-                RoomId = m.RoomId
+                RoomId = m.RoomId,
+                UserId = m.UserId
             });
         }
 

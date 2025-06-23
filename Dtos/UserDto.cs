@@ -1,20 +1,27 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using SmartMeetingRoomApi.Models;
+using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
 
 namespace SmartMeetingRoomApi.Dtos
 {
     public class UserDto
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public string? UserName { get; set; }
         public string? Email { get; set; }
         public bool IsActive { get; set; }
-        public string? Role { get; set; }
+        public required string Role { get; set; }
     }
 
     public class CreateUserDto
     {
         [Required]
-        public string Name { get; set; } = string.Empty;
+        public required string FirstName { get; set; }
+
+        [Required]
+        public required string LastName { get; set; }
 
         [Required]
         [EmailAddress]
@@ -23,14 +30,17 @@ namespace SmartMeetingRoomApi.Dtos
         [Required]
         public string Password { get; set; } = string.Empty;
 
-        public string? Role { get; set; }
+        [Required]
+        public required string Role { get; set; }
+        
     }
 
     public class UpdateUserDto
     {
-        public string? Name { get; set; }
-        public string? Email { get; set; }
-        public string? Password { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Email { get; set; }
+        public required string Password { get; set; }
         public string? Role { get; set; }
         public bool? IsActive { get; set; }
     }

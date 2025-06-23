@@ -25,7 +25,7 @@ namespace SmartMeetingRoomApi.Controllers
                 {
                     Id = m.Id,
                     ScheduledMeetingId = m.ScheduledMeetingId,
-                    CreatedBy = m.CreatedBy,
+                    UserId = m.UserId,
                     Summary = m.Summary,
                     Notes = m.Notes,
                     CreatedAt = m.CreatedAt
@@ -44,7 +44,7 @@ namespace SmartMeetingRoomApi.Controllers
             {
                 Id = mom.Id,
                 ScheduledMeetingId = mom.ScheduledMeetingId,
-                CreatedBy = mom.CreatedBy,
+                UserId = mom.UserId,
                 Summary = mom.Summary,
                 Notes = mom.Notes,
                 CreatedAt = mom.CreatedAt
@@ -57,7 +57,7 @@ namespace SmartMeetingRoomApi.Controllers
             var mom = new MoM
             {
                 ScheduledMeetingId = dto.ScheduledMeetingId,
-                CreatedBy = dto.CreatedBy,
+                UserId = dto.UserId,
                 Summary = dto.Summary,
                 Notes = dto.Notes,
                 CreatedAt = DateTime.UtcNow
@@ -70,7 +70,7 @@ namespace SmartMeetingRoomApi.Controllers
             {
                 Id = mom.Id,
                 ScheduledMeetingId = mom.ScheduledMeetingId,
-                CreatedBy = mom.CreatedBy,
+                UserId = mom.UserId,
                 Summary = mom.Summary,
                 Notes = mom.Notes,
                 CreatedAt = mom.CreatedAt

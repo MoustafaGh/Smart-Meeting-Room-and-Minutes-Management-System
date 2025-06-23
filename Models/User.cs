@@ -5,11 +5,13 @@ namespace SmartMeetingRoomApi.Models
     public class User
     {
         public int Id { get; set; }
-        public string? Name { get; set; }
+        public  string? FirstName { get; set; }
+        public  string? LastName { get; set; }
+        public string? UserName { get; set; } 
         public string? Email { get; set; }
-        public string? PasswordHash { get; set; } // Store hashed password for security
+        public string? PasswordHash { get; set; } 
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // Default to current time
-        public bool IsActive { get; set; } = true; // Default value is true, indicating the user is active
+        public bool IsActive { get; set; } = true; 
         public string? Role { get; set; }
 
 

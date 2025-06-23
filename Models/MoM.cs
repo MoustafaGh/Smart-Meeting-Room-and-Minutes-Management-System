@@ -6,7 +6,7 @@ namespace SmartMeetingRoomApi.Models
     {
         public int Id { get; set; }
         public int ScheduledMeetingId { get; set; } // Foreign key to ScheduledMeeting
-        public string? CreatedBy { get; set; } // User who created the MoM , FK fom User table
+        public int UserId { get; set; } // User who created the MoM , FK fom User table
         public string? Summary { get; set; }
         public string? Notes { get; set; }
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // Default to current time

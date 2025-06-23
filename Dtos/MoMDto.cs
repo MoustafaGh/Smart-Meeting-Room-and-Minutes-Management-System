@@ -4,7 +4,7 @@
     {
         public int Id { get; set; }
         public int ScheduledMeetingId { get; set; }
-        public string? CreatedBy { get; set; }
+        public int UserId { get; set; }
         public string? Summary { get; set; }
         public string? Notes { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -12,8 +12,9 @@
 
     public class CreateMoMDto
     {
-        public int ScheduledMeetingId { get; set; }
-        public string CreatedBy { get; set; } = string.Empty;
+        
+        public required int ScheduledMeetingId { get; set; }
+        public required int UserId { get; set; }
         public string Summary { get; set; } = string.Empty;
         public string Notes { get; set; } = string.Empty;
     }
