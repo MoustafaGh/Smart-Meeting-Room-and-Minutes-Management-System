@@ -51,6 +51,7 @@ namespace SmartMeetingRoomApi.Controllers
                 RoomId = m.RoomId,
                 UserId = m.UserId
             });
+            //return Ok(m);
         }
 
         [HttpPost]

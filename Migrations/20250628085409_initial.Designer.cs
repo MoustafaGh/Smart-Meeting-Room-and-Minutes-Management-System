@@ -12,8 +12,8 @@ using SmartMeetingRoomApi.Data;
 namespace SmartMeetingRoomApi.Migrations
 {
     [DbContext(typeof(SmartMeetingRoomApiDbContext))]
-    [Migration("20250623111139_Initial")]
-    partial class Initial
+    [Migration("20250628085409_initial")]
+    partial class initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -200,6 +200,9 @@ namespace SmartMeetingRoomApi.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Role")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
