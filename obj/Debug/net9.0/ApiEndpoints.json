@@ -629,6 +629,16 @@
   },
   {
     "ContainingType": "SmartMeetingRoomApi.Controllers.UserController",
+    "Method": "AuthencationOnlyEndpoint",
+    "RelativePath": "api/User/admin-only",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SmartMeetingRoomApi.Controllers.UserController",
     "Method": "CreateUser",
     "RelativePath": "api/User/Create User",
     "HttpMethod": "POST",
@@ -669,7 +679,33 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "System.String",
+        "Type": "SmartMeetingRoomApi.Dtos.TokenResponseDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SmartMeetingRoomApi.Controllers.UserController",
+    "Method": "RefreshToken",
+    "RelativePath": "api/User/Refresh-Token",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SmartMeetingRoomApi.Dtos.RefreshTokenReqDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SmartMeetingRoomApi.Dtos.TokenResponseDto",
         "MediaTypes": [
           "text/plain",
           "application/json",

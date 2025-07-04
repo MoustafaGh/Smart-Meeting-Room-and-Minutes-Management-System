@@ -10,6 +10,7 @@ using System.Text;
 using System;
 using System.IdentityModel.Tokens.Jwt;
 using SmartMeetingRoomApi.services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace SmartMeetingRoomApi.Controllers
 {
@@ -106,7 +107,7 @@ namespace SmartMeetingRoomApi.Controllers
         }
 
         [HttpPost("Login")]
-        public async Task<ActionResult<string>> Login(UserLoginDto dto)
+        public async Task<ActionResult<TokenResponseDto>> Login(UserLoginDto dto)
         {
 
             var token = await authService.Login(dto);
@@ -149,6 +150,22 @@ namespace SmartMeetingRoomApi.Controllers
             return NoContent();
         }
 
-        
+        [Authorize (Roles = "Admin")]
+        [HttpGet("admin-only")]
+        public IActionResult AuthencationOnlyEndpoint()
+        {
+            return Ok("you are an admin");
+        }
+
+
+        [HttpPost("Refresh-Token")]
+        public async Task<ActionResult<TokenResponseDto>> RefreshToken(RefreshTokenReqDto request)
+        {
+            var result = await authService.RefreshTokenAsync(request);
+            if (result is null  || result.AccessToken is null || result.RefreshToken is null) 
+                return Unauthorized("Invalid refresh token");
+            return Ok(result);
+
+        }
     }
 }

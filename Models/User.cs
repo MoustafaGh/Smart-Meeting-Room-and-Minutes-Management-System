@@ -13,6 +13,8 @@ namespace SmartMeetingRoomApi.Models
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow; // Default to current time
         public bool IsActive { get; set; } = true; 
         public string? Role { get; set; }
+        public string? RefreshToken { get; set; } 
+        public DateTime? RefreshTokenExpiryTime { get; set; }
 
 
         [JsonIgnore]

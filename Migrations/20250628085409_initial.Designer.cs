@@ -13,7 +13,7 @@ namespace SmartMeetingRoomApi.Migrations
 {
     [DbContext(typeof(SmartMeetingRoomApiDbContext))]
     [Migration("20250628085409_initial")]
-    partial class initial
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

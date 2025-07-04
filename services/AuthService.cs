@@ -8,6 +8,7 @@ using SmartMeetingRoomApi.Dtos;
 using SmartMeetingRoomApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace SmartMeetingRoomApi.services
@@ -42,11 +43,11 @@ namespace SmartMeetingRoomApi.services
             return user;
         }
 
-        public async Task<string?> Login(UserLoginDto request)
+        public async Task<TokenResponseDto?> Login(UserLoginDto request)
         {
             var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == request.Email);
-                
-            if (user == null) 
+
+            if (user == null)
                 return null;
 
             //var passwordHasher = new PasswordHasher<User>();
@@ -54,8 +55,17 @@ namespace SmartMeetingRoomApi.services
             if (new PasswordHasher<User>().VerifyHashedPassword(user, user.PasswordHash, request.Password) == PasswordVerificationResult.Failed)
                 return null;
 
-            //var token = CreateToken(user);
-            return CreateToken(user);
+            
+            return await CreateTokenResponse(user);
+        }
+
+        private async Task<TokenResponseDto> CreateTokenResponse(User user)
+        {
+            return new TokenResponseDto
+            {
+                AccessToken = CreateToken(user),
+                RefreshToken = await GenerateAndSaveRefreshToken(user)
+            };
         }
 
         private String CreateToken(User user)
@@ -78,6 +88,50 @@ namespace SmartMeetingRoomApi.services
             );
             return new JwtSecurityTokenHandler().WriteToken(tokenDescriptor);
         }
+
+
+        private string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[32];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            
+            return Convert.ToBase64String(randomNumber);
+        }
+
+        private async Task<string> GenerateAndSaveRefreshToken(User user)
+        {
+            var refreshToken = GenerateRefreshToken();
+            user.RefreshToken = refreshToken;
+            user.RefreshTokenExpiryTime = DateTime.UtcNow.AddDays(7);
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return refreshToken;
+        }
+
+        private async Task<User?> ValidateRefreshToken(string email,string refreshToken)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            if (user == null || user.RefreshToken != refreshToken  || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            {
+                return null; // Invalid or expired refresh token
+            }
+            return user;
+        }
+
+
+        public async Task<TokenResponseDto?> RefreshTokenAsync(RefreshTokenReqDto request)
+        {
+            var user = await ValidateRefreshToken(request.Email, request.RefreshToken);
+            if (user is null)
+            {
+                return null;
+            }
+
+            return await CreateTokenResponse(user);
+        }
+
+
     }
 
 }

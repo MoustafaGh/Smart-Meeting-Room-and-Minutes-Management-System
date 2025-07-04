@@ -7,7 +7,8 @@ namespace SmartMeetingRoomApi.services
     public interface IAuthService
     {
         Task<User?> CreateUser(CreateUserDto request);
-        Task<String?> Login(UserLoginDto request);
+        Task<TokenResponseDto?> Login(UserLoginDto request);
+        Task<TokenResponseDto?>? RefreshTokenAsync(RefreshTokenReqDto request);
 
     }
 }
